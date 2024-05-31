@@ -22,16 +22,10 @@ jobs:
         DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
 
     - name: Git Pull
-      run: ssh root@161.97.165.158 "cd fundglide && git pull origin master"
-
-    - name: Make Script Executable
-      run: ssh root@161.97.165.158 "cd fundglide && chmod +x ./restart.sh ./shutdown.sh ./startup.sh"
-
-    - name: Stop Application
-      run: ssh root@161.97.165.158 "cd fundglide && sudo sh ./shutdown.sh"
+      run: ssh root@161.97.165.158 "cd /var/www/webapp && git pull origin master"
 
     - name: Restart Application
-      run: ssh root@161.97.165.158 "cd fundglide && sudo sh ./startup.sh"
+      run: ssh root@161.97.165.158 "cd /var/www/webapp && sudo systemctl restart nginx"
 
     
 
