@@ -34,18 +34,19 @@
          <div class="mobile-menu-closer"></div>
          <div class="content-menu">
             <div class="content-infos">
-               <div class="info"><b>Version:</b> 1.0.5</div>
-               <div class="info"><b>Last Updated:</b> 15th Sep, 2021</div>
+               <div class="info"><b>Version:</b> 1.0.0</div>
+               <div class="info"><b>Last Updated:</b> 2nd June, 2024</div>
+               <div class="info"><b>Github</b> <a href="https://github.com/finedevsam/fundglide" target="_blank">Click Here</a></div>
             </div>
             <ul>
                <li class="scroll-to-link active" data-target="content-get-started">
                   <a>GET STARTED</a>
                </li>
-               <li class="scroll-to-link" data-target="content-get-characters">
-                  <a>Get Characters</a>
+               <li class="scroll-to-link" data-target="content-get-authentication">
+                  <a>Authentication</a>
                </li>
-               <li class="scroll-to-link" data-target="content-get-login">
-                <a>Get Login</a>
+               <li class="scroll-to-link" data-target="content-get-loggedin-user">
+                <a>LoggedIn User</a>
              </li>
                <li class="scroll-to-link" data-target="content-errors">
                   <a>Errors</a>
@@ -59,60 +60,120 @@
             <div class="overflow-hidden content-section" id="content-get-started">
                <h1>Get started</h1>
                <pre>
-                API Endpoint
-
-                    https://api.westeros.com/
+                Base URL : https://api.fundglide.xyz
                 </pre>
                <p>
-                  The Westeros API provides programmatic access to read Game of Thrones data. Retrieve a character, provide an oauth connexion, retrieve a familly, filter them, etc.
+                Welcome to the documentation for our open-source financial application! 
+                This application is designed to provide a comprehensive set of features 
+                for managing financial transactions, including account tiering, fund 
+                transfers, QR payments, intra and inter transactions, and loan booking. 
+                This documentation will guide you through the various functionalities and 
+                help you understand how to use and contribute to the application.<br><br>
+                <h1>Features</h1><br>
+                <p>Our financial application offers the following key features:</p>
+
+                <p><b>1. Account Tiering</b>: The application supports account tiering, allowing users to categorize accounts into different tiers based on predefined criteria. This feature enables personalized account management and customized services for different account types.</p>
+                <p> 2. Fund Transfer: Users can initiate fund transfers between their own accounts or to other users. The application supports various transfer methods such as bank transfers, e-wallet transfers, and online payment gateways, ensuring secure and convenient transactions.</p>
+                <p> 3. QR Payment: The application integrates QR code payment functionality, enabling users to make payments by scanning QR codes. This feature simplifies the payment process and facilitates seamless transactions between individuals and businesses.</p>
+                <p> 4. Intra and Inter Transact: Users can perform both intra- and inter-bank transactions. Intra-transactions allow transfers within the same financial institution, while inter-transactions enable transfers between different banks. The application handles the necessary protocols and security measures to ensure smooth and secure transactions.</p>
+                <p> 5. Loan Booking: Users can apply for loans through the application. The loan booking feature provides a streamlined process for loan applications, including eligibility checks, document submission, and approval workflows. It helps users access financial assistance conveniently and efficiently.</p>
                </p>
                <p>
-                  To use this API, you need an <strong>API key</strong>. Please contact us at <a href="mailto:jon.snow@nightswatch.wes">jon.snow@nightswatch.wes</a> to get your own API key.
+                  To contribute to this <strong>project</strong>. Please contact us at <a href="mailto:contribute@fundglide.xyz">contribute@fundglide.xyz</a>.
                </p>
             </div>
-            <div class="overflow-hidden content-section" id="content-get-characters">
-               <h2>get characters</h2>
+            <div class="overflow-hidden content-section" id="content-get-authentication">
+               <h2>Authentication</h2>
                <pre><code class="bash">
-                # Here is a curl example
-                curl \
-                -X POST http://api.westeros.com/character/get \
-                -F 'secret_key=your_api_key' \
-                -F 'house=Stark,Bolton' \
-                -F 'offset=0' \
-                -F 'limit=50'
+                # Here is a curl example for customer Authentication
+                curl --location 'https://api.fundglide.xyz/auth/login' \
+                --header 'Content-Type: application/json' \
+                --data '{
+                    "username": "3000000000",
+                    "password": "12345"
+                }'
+                
+                # Here is a curl example for Admin Authentication
+                curl --location 'https://api.fundglide.xyz/auth/admin/login' \
+                --header 'Content-Type: application/json' \
+                --data-raw '{
+                    "email": "admin@fintabsolution.com",
+                    "password": "12345"
+                }'
                 </code></pre>
                <p>
-                  To get characters you need to make a POST call to the following url :<br>
-                  <code class="higlighted break-word">http://api.westeros.com/character/get</code>
+                Authentication to the system come in two ways. User can either login as admin or customer.
+                  To authenticate as admin/staff you need to make a POST call to the following url :<br>
+                  Admin/Staff: <code class="higlighted break-word">{{baseurl}}/auth/admin/login</code><br>
+                  Customer: <code class="higlighted break-word">{{baseurl}}/auth/login</code><br>
                </p>
                <br>
                <pre><code class="json">
-            Result example :
+                Admin Response Sample:
 
-            {
-            query:{
-                offset: 0,
-                limit: 50,
-                house: [
-                "Stark",
-                "Bolton"
-                ],
-            }
-            result: [
                 {
-                id: 1,
-                first_name: "Jon",
-                last_name: "Snow",
-                alive: true,
-                house: "Stark",
-                gender: "m",
-                age: 14,
-                location: "Winterfell"
+                    "profile": {
+                        "firstName": "System",
+                        "lastName": "Administrator",
+                        "imageUrl": null,
+                        "permission": [
+                            "93a4da6a-5a01-4f0b-897c-bb3e011a41cb"
+                        ],
+                        "department": "611d42f1-9be9-4310-86e8-47db06c8a2e7",
+                        "email": "admin@fintabsolution.com"
+                    },
+                    "user": {
+                        "accessToken": "eyJhbGciOiJIUzUxMiJ9.-y9nmzfHqUZYizTQ"
+                    }
                 }
-            ]
-            }
+
+                Customer Response Sample:
+
+                {
+                    "profile": {
+                        "firstName": "Samson",
+                        "lastName": "Ilemobayo",
+                        "middleName": null,
+                        "email": "test@gmail.com"
+                    },
+                    "user": {
+                        "accessToken": "eyJhbGciOiJIUzUxMiJ9.-lYTwC8RbnytTjpO0HcfQ"
+                    }
+                }
                 </code></pre>
                <h4>QUERY PARAMETERS</h4>
+               <table class="central-overflow-x">
+                  <thead>
+                     <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>User Type</th>
+                        <th>Description</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>username</td>
+                        <td>String</td>
+                        <td>Customer</td>
+                        <td>Customer Email use for registration or Account Number Generated after registration</td>
+                     </tr>
+                     <tr>
+                        <td>password</td>
+                        <td>String</td>
+                        <td>All</td>
+                        <td>User (Customer/Admin) password</td>
+                     </tr>
+                     <tr>
+                        <td>email</td>
+                        <td>String</td>
+                        <td>Admin</td>
+                        <td>Admin email used in creating admin account</td>
+                     </tr>
+                  </tbody>
+               </table><br>
+
+               <h4>RESPONSE PARAMETERS</h4>
                <table class="central-overflow-x">
                   <thead>
                      <tr>
@@ -123,94 +184,104 @@
                   </thead>
                   <tbody>
                      <tr>
-                        <td>secret_key</td>
+                        <td>firstName</td>
                         <td>String</td>
-                        <td>Your API key.</td>
+                        <td>User firstname</td>
                      </tr>
                      <tr>
-                        <td>search</td>
+                        <td>middleName</td>
                         <td>String</td>
-                        <td>(optional) A search word to find character by name.</td>
+                        <td>Customer middle Name</td>
                      </tr>
                      <tr>
-                        <td>house</td>
+                        <td>lastName</td>
                         <td>String</td>
-                        <td>
-                           (optional) a string array of houses:
-                        </td>
+                        <td>User User lastname</td>
                      </tr>
                      <tr>
-                        <td>alive</td>
-                        <td>Boolean</td>
-                        <td>
-                           (optional) a boolean to filter alived characters
-                        </td>
-                     </tr>
-                     <tr>
-                        <td>gender</td>
+                        <td>imageUrl</td>
                         <td>String</td>
-                        <td>
-                           (optional) a string to filter character by gender:<br>
-                           m: male<br>
-                           f: female
-                        </td>
+                        <td>Admin User profile image url</td>
                      </tr>
                      <tr>
-                        <td>offset</td>
-                        <td>Integer</td>
-                        <td>(optional - default: 0) A cursor for use in pagination. Pagination starts offset the specified offset.</td>
-                     </tr>
-                     <tr>
-                        <td>limit</td>
-                        <td>Integer</td>
-                        <td>(optional - default: 10) A limit on the number of objects to be returned, between 1 and 100.</td>
-                     </tr>
+                        <td>permission</td>
+                        <td>Array</td>
+                        <td>Admin Permission of what the admin can do on the system</td>
+                    </tr>
+                    <tr>
+                        <td>department</td>
+                        <td>String</td>
+                        <td>Department of the admin that logged in</td>
+                    </tr>
+                    <tr>
+                        <td>accessToken</td>
+                        <td>String</td>
+                        <td>Authentication Access Token to authenticate the all the endpoints.</td>
+                    </tr>
                   </tbody>
                </table>
             </div>
-            <div class="overflow-hidden content-section" id="content-get-login">
-                <h2>get Login</h2>
+            <div class="overflow-hidden content-section" id="content-get-loggedin-user">
+                <h2>Logged In User</h2>
                 <pre><code class="bash">
-                 # Here is a curl example
-                 curl \
-                 -X POST http://api.westeros.com/character/get \
-                 -F 'secret_key=your_api_key' \
-                 -F 'house=Stark,Bolton' \
-                 -F 'offset=0' \
-                 -F 'limit=50'
+                 # Here is a curl example to get the admin user that Logged in
+                 curl --location 'https://api.fundglide.xyz/auth/admin/isme' \
+                --header 'Authorization: Bearer eyJhbGciOi...'
+
+                # Here is a curl example to get the customer that Logged in
+                curl --location 'https://api.fundglide.xyz/auth/me' \
+                --header 'Authorization: Bearer eyJhbGciOiJD4LmZglGRw4-lYTwC8RbnytTjpO0HcfQ'
                  </code></pre>
                 <p>
-                   To get characters you need to make a POST call to the following url :<br>
-                   <code class="higlighted break-word">http://api.westeros.com/character/get</code>
+                   To get user that is currently logged in the system, you need to make a GET call to the following url : :<br>
+                  Admin/Staff: <code class="higlighted break-word">{{baseurl}}/auth/admin/isme</code><br>
+                  Customer: <code class="higlighted break-word">{{baseurl}}/auth/me</code><br>
+
+                  The Endpoint take in Authorization Bearer: {{accessToken}}
                 </p>
                 <br>
                 <pre><code class="json">
-             Result example :
+                Customer Response Sample:
  
-             {
-             query:{
-                 offset: 0,
-                 limit: 50,
-                 house: [
-                 "Stark",
-                 "Bolton"
-                 ],
-             }
-             result: [
-                 {
-                 id: 1,
-                 first_name: "Jon",
-                 last_name: "Snow",
-                 alive: true,
-                 house: "Stark",
-                 gender: "m",
-                 age: 14,
-                 location: "Winterfell"
-                 }
-             ]
-             }
+                {
+                    "firstName": "Samson",
+                    "isCustomer": true,
+                    "lastName": "Ilemobayo",
+                    "address": null,
+                    "modeOfId": null,
+                    "middleName": null,
+                    "idData": null,
+                    "profileImage": null,
+                    "accounts": {
+                        "accountNo": "3000000000",
+                        "balance": "0",
+                        "lockBalance": "0",
+                        "tier": "tier1",
+                        "code": "000",
+                        "active": true,
+                        "isQr": true,
+                        "qrodeUrl": "https://res.cloudinary.com/dhkhkpj6o/image/upload/v1715971184/qrcode/qrcode_yld9ah.png"
+                    },
+                    "email": "samson@gmail.com",
+                    "dateRegistered": "2024-05-17T18:36:08.854+00:00"
+                }
+                
+                Admin Response Sample :
+
+                {
+                    "profile": {
+                        "firstName": "System",
+                        "lastName": "Administrator",
+                        "imageUrl": null,
+                        "permission": [
+                            "93a4da6a-5a01-4f0b-897c-bb3e011a41cb"
+                        ],
+                        "department": "611d42f1-9be9-4310-86e8-47db06c8a2e7",
+                        "email": "admin@fintabsolution.com"
+                    }
+                }
                  </code></pre>
-                <h4>QUERY PARAMETERS</h4>
+                <h4>RESPONSE PARAMETERS</h4>
                 <table class="central-overflow-x">
                    <thead>
                       <tr>
@@ -220,49 +291,116 @@
                       </tr>
                    </thead>
                    <tbody>
-                      <tr>
-                         <td>secret_key</td>
-                         <td>String</td>
-                         <td>Your API key.</td>
-                      </tr>
-                      <tr>
-                         <td>search</td>
-                         <td>String</td>
-                         <td>(optional) A search word to find character by name.</td>
-                      </tr>
-                      <tr>
-                         <td>house</td>
-                         <td>String</td>
-                         <td>
-                            (optional) a string array of houses:
-                         </td>
-                      </tr>
-                      <tr>
-                         <td>alive</td>
-                         <td>Boolean</td>
-                         <td>
-                            (optional) a boolean to filter alived characters
-                         </td>
-                      </tr>
-                      <tr>
-                         <td>gender</td>
-                         <td>String</td>
-                         <td>
-                            (optional) a string to filter character by gender:<br>
-                            m: male<br>
-                            f: female
-                         </td>
-                      </tr>
-                      <tr>
-                         <td>offset</td>
-                         <td>Integer</td>
-                         <td>(optional - default: 0) A cursor for use in pagination. Pagination starts offset the specified offset.</td>
-                      </tr>
-                      <tr>
-                         <td>limit</td>
-                         <td>Integer</td>
-                         <td>(optional - default: 10) A limit on the number of objects to be returned, between 1 and 100.</td>
-                      </tr>
+                    <tr>
+                        <td>firstName</td>
+                        <td>String</td>
+                        <td>User firstname</td>
+                    </tr>
+                    <tr>
+                        <td>middleName</td>
+                        <td>String</td>
+                        <td>Customer middle Name</td>
+                    </tr>
+                    <tr>
+                        <td>lastName</td>
+                        <td>String</td>
+                        <td>User User lastname</td>
+                    </tr>
+                    <tr>
+                        <td>imageUrl</td>
+                        <td>String</td>
+                        <td>Admin User profile image url</td>
+                    </tr>
+                    <tr>
+                        <td>permission</td>
+                        <td>Array</td>
+                        <td>Admin Permission of what the admin can do on the system</td>
+                    </tr>
+                    <tr>
+                        <td>department</td>
+                        <td>String</td>
+                        <td>Department of the admin that logged in</td>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td>String</td>
+                        <td>User Email</td>
+                    </tr>
+                    <tr>
+                        <td>dateRegistered</td>
+                        <td>String</td>
+                        <td>Date Time of when the user registered</td>
+                    </tr>
+                    <tr>
+                        <td>accounts</td>
+                        <td>Object</td>
+                        <td>Customer Account Objects</td>
+                    </tr>
+                    <tr>
+                        <td>accounts.accountNo</td>
+                        <td>String</td>
+                        <td>Customer Account Number</td>
+                    </tr>
+                    <tr>
+                        <td>accounts.balance</td>
+                        <td>String</td>
+                        <td>Customer Account Balance</td>
+                    </tr>
+                    <tr>
+                        <td>accounts.lockBalance</td>
+                        <td>String</td>
+                        <td>Customer Locked Balance. The Amount the system locked either for a post dated payment or loan repament</td>
+                    </tr>
+                    <tr>
+                        <td>accounts.tier</td>
+                        <td>String</td>
+                        <td>Customer Account Level. It show the type of service and level of operation customer can perform on the system</td>
+                    </tr>
+                    <tr>
+                        <td>accounts.code</td>
+                        <td>String</td>
+                        <td>Account group the customer belong.</td>
+                    </tr>
+                    <tr>
+                       <td>accounts.active</td>
+                       <td>Boolean</td>
+                       <td>Account Status.</td>
+                    </tr>
+                    <tr>
+                        <td>accounts.isQr</td>
+                        <td>Boolean</td>
+                        <td>Show maybe customer activate QR Payment or not</td>
+                    </tr>
+                    <tr>
+                        <td>accounts.qrodeUrl</td>
+                        <td>String</td>
+                        <td>Show QRCode URL if activated by customer.</td>
+                    </tr>
+                    <tr>
+                        <td>profileImage</td>
+                        <td>String</td>
+                        <td>Customer Profile Image URL</td>
+                    </tr>
+                    <tr>
+                        <td>idData</td>
+                        <td>String</td>
+                        <td>Customer uploaded Identity.</td>
+                    </tr>
+                    <tr>
+                        <td>modeOfId</td>
+                        <td>String</td>
+                        <td>Customer Mode of Identity.</td>
+                    </tr>
+                    <tr>
+                        <td>address</td>
+                        <td>String</td>
+                        <td>Customer Residencial Address.</td>
+                    </tr>
+                    <tr>
+                        <td>isCustomer</td>
+                        <td>Boolean</td>
+                        <td>Show that the customer that logged in a customer.</td>
+                    </tr>
                    </tbody>
                 </table>
              </div>
