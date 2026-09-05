@@ -64,3 +64,6 @@ We're always looking for:
 * Bug reports, especially those for aspects with a reduced test case
 * Pull requests for features, spelling errors, clarifications, etc.
 * Ideas for enhancements
+
+
+<!-- Security scan triggered at 2026-09-05 07:53:36 -->
